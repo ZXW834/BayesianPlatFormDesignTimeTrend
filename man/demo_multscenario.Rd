@@ -21,7 +21,7 @@ This is a demo function simulating multi-arm multi-stage design with two differe
 The clinically meaningful increment on probability scale is 0.2. The stopping boundary is the OBF. The cutoff vector in the demo is tuned to keep Type I error rate to be 0.05. The output data can be saved as .RData file
 }
 \examples{
-demo_multscenario(ntrials = 10, cl = 2, save_data = FALSE)
+demo_multscenario(ntrials = 10, cl = 4, save_data = FALSE)
 \dontshow{
 ## R CMD check: make sure any open connections are closed afterward
 doParallel::stopImplicitCluster()}
