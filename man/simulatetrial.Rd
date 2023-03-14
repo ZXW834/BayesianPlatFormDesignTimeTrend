@@ -9,7 +9,7 @@ simulatetrial(
   response.probs = c(0.4, 0.4),
   ns = c(30, 60, 90, 120, 150),
   max.ar = 0.75,
-  rand.type = "Urn",
+  rand.algo = "Urn",
   max.deviation = 3,
   model.inf = list(model = "tlr", ibb.inf = list(pi.star = 0.5, pess = 2,
     betabinomialmodel = ibetabinomial.post), tlr.inf = list(beta0_prior_mu = 0,
@@ -27,9 +27,9 @@ simulatetrial(
 
 \item{ns}{A vector of accumulated number of patient at each stage. Default is ns = c(30, 60, 90, 120, 150).}
 
-\item{max.ar}{The upper boundary for randomisation ratio for each arm. Default is 0.75 for a two arm trial.}
+\item{max.ar}{The upper boundary for randomisation ratio for each arm. Default is 0.75 for a two arm trial. The minimum value depends on K where 1 - max.ar <= 1/K}
 
-\item{rand.type}{The method of applying patient allocation with a given randomisation probability vector. Default is "Urn".}
+\item{rand.algo}{The method of applying patient allocation with a given randomisation probability vector. Default is "Urn".}
 
 \item{max.deviation}{The tuning parameter for Urn randomisation method. Default is 3.}
 
@@ -52,7 +52,7 @@ set.seed(1)
 simulatetrial(response.probs = c(0.4, 0.4),
                ns = c(30, 60, 90, 120, 150),
                max.ar = 0.75,
-               rand.type = "Urn",
+               rand.algo = "Urn",
                max.deviation = 3,
                model.inf = list(
                model = "tlr",
