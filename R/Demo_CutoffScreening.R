@@ -31,7 +31,7 @@ demo_Cutoffscreening = function(ntrials = 1000,
                                   response.probs = c(0.4, 0.4),
                                   ns = c(30, 60, 90, 120, 150),
                                   max.ar = 0.75,
-                                  rand.type = "Urn",
+                                  rand.algo = "Urn",
                                   max.deviation = 3,
                                   model.inf = list(
                                     model = "tlr",
@@ -67,6 +67,7 @@ demo_Cutoffscreening = function(ntrials = 1000,
                                 ),
                                 cl = 2) {
   old <- options()# code line i
+  on.exit(options(old))
   #Set start grid of screening
   startgrid <-
     data.frame(tpIE = rep(NA, length(grid.inf$start)), cutoff = grid.inf$start)
@@ -94,7 +95,7 @@ demo_Cutoffscreening = function(ntrials = 1000,
       response.probs = input.info$response.probs,
       ns = input.info$ns,
       max.ar = input.info$max.ar,
-      rand.type = input.info$rand.type,
+      rand.algo = input.info$rand.algo,
       max.deviation = input.info$max.deviation,
       model.inf = input.info$model.inf,
       Stopbound.inf = Stopbound.inf,
@@ -121,7 +122,12 @@ demo_Cutoffscreening = function(ntrials = 1000,
   randomprobability = (1 / (abs(predictedtpIE[abs(predictedtpIE - 0.05) <=
                                                 0.0025] - 0.05) + e)) / sum(1 / (abs(predictedtpIE[abs(predictedtpIE - 0.05) <=
                                                                                                      0.0025] - 0.05) + e))
-  nextcutoff = sample(potentialcutoff, 1, replace = T, prob = randomprobability)
+  if (length(potentialcutoff) > 1){
+    nextcutoff = sample(potentialcutoff, 1, replace = T, prob = randomprobability)
+  }
+  else {
+    nextcutoff = cutoffgrid[which.min(abs(predictedtpIE - 0.05))]
+  }
   extendgrid[1, 2] = nextcutoff
   recommand = {
 
@@ -138,7 +144,7 @@ demo_Cutoffscreening = function(ntrials = 1000,
       response.probs = input.info$response.probs,
       ns = input.info$ns,
       max.ar = input.info$max.ar,
-      rand.type = input.info$rand.type,
+      rand.algo = input.info$rand.algo,
       max.deviation = input.info$max.deviation,
       model.inf = input.info$model.inf,
       Stopbound.inf = Stopbound.inf,
@@ -164,9 +170,16 @@ demo_Cutoffscreening = function(ntrials = 1000,
       randomprobability = 1
       potentialcutoff = extendgrid[cutoffindex, 2]
     }
-    extendgrid[cutoffindex + 1, 2] = sample(potentialcutoff, 1, replace = T, prob = randomprobability)
-    recommand = c(recommand, cutoffgrid[as.numeric(names(which.max(randomprobability)))])
-    message(paste("Finished extend grid screening round", cutoffindex))
+    if (length(potentialcutoff) > 1){
+      extendgrid[cutoffindex + 1, 2] = sample(potentialcutoff, 1, replace = T, prob = randomprobability)
+      recommand = c(recommand, cutoffgrid[as.numeric(names(which.max(randomprobability)))])
+      message(paste("Finished extend grid screening round", cutoffindex))
+    }
+    else {
+      extendgrid[cutoffindex + 1, 2] = cutoffgrid[which.min(abs(predictedtpIE - 0.05))]
+      recommand = c(recommand, cutoffgrid[which.min(abs(predictedtpIE - 0.05))])
+      message(paste("Finished extend grid screening round", cutoffindex))
+    }
   }
   message("Output data recording")
   dataloginformd = data.frame(rbind(startgrid, extendgrid))
@@ -178,7 +191,6 @@ demo_Cutoffscreening = function(ntrials = 1000,
     predict(quadratic.model,
             list(cutoff = cutoffgrid, cutoff2 = cutoffgrid ^ 2))
   doParallel::stopImplicitCluster()
-  on.exit(options(old))
   return(
     list(
       detailsforgrid = dataloginformd,

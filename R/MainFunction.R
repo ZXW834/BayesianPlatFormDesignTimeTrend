@@ -3,8 +3,8 @@
 #' @param ii Meaning less parameter but required for foreach function in doParallel package
 #' @param response.probs A vector of true response probability for each arm. Default response.probs = c(0.4, 0.4).
 #' @param ns  A vector of accumulated number of patient at each stage. Default is ns = c(30, 60, 90, 120, 150).
-#' @param max.ar The upper boundary for randomisation ratio for each arm. Default is 0.75 for a two arm trial.
-#' @param rand.type The method of applying patient allocation with a given randomisation probability vector. Default is "Urn".
+#' @param max.ar The upper boundary for randomisation ratio for each arm. Default is 0.75 for a two arm trial. The minimum value depends on K where 1 - max.ar <= 1/K
+#' @param rand.algo The method of applying patient allocation with a given randomisation probability vector. Default is "Urn".
 #' @param max.deviation The tuning parameter for Urn randomisation method. Default is 3.
 #' @param Stopbound.inf The list of stop boundary information for more see \code{\link{Stopboundinf}}
 #' @param Random.inf The list of Adaptive randomisation information for more see \code{\link{Randomisation.inf}}
@@ -19,7 +19,7 @@
 #' simulatetrial(response.probs = c(0.4, 0.4),
 #'                ns = c(30, 60, 90, 120, 150),
 #'                max.ar = 0.75,
-#'                rand.type = "Urn",
+#'                rand.algo = "Urn",
 #'                max.deviation = 3,
 #'                model.inf = list(
 #'                model = "tlr",
@@ -60,7 +60,7 @@ simulatetrial <- function(ii,
                            response.probs = c(0.4, 0.4),
                            ns = c(30, 60, 90, 120, 150),
                            max.ar = 0.75,
-                           rand.type = "Urn",
+                           rand.algo = "Urn",
                            max.deviation = 3,
                            model.inf  = list(
                                             model = "tlr",
@@ -113,9 +113,14 @@ simulatetrial <- function(ii,
   randomprob = initialised.par$randomprob
   z = initialised.par$z
   y = initialised.par$y
-
   group_indicator = initialised.par$group_indicator
   post.prob.best.mat = initialised.par$post.prob.best.mat
+
+  #-max.ar check
+  if (1 - max.ar > 1/K){
+    stop("Error: The lower allocation ratio should be at least 1/K. Please check the number of arm at the beginning and the max.ar")
+  }
+
   #Initialize the output data frame: stats
   stats = OutputStats.initialising(model.inf$tlr.inf$variable.inf,
                                    model.inf$tlr.inf$reg.inf,
@@ -139,10 +144,10 @@ simulatetrial <- function(ii,
 
     # Patient randomisation based on given randomization ratio
     # Parameter checking
-    if (rand.type %in% c("Coin", "Urn")) {
+    if (rand.algo %in% c("Coin", "Urn")) {
       random.output = AdaptiveRandomisation(
         Fixratio,
-        rand.type,
+        rand.algo,
         K,
         n.new,
         randomprob,
@@ -159,7 +164,7 @@ simulatetrial <- function(ii,
       )
     }
     else {
-      stop("Error randomisation type wrong")
+      stop("Error: randomisation type wrong")
     }
 
     # Extract the output list
@@ -369,6 +374,7 @@ simulatetrial <- function(ii,
         processedfitresult = resultstantoRfunc(
           group = group,
           reg.inf = model.inf$tlr.inf$reg.inf,
+          variable.inf = model.inf$tlr.inf$variable.inf,
           fit = fit,
           armleft = armleft,
           treatmentindex = treatmentindex,
@@ -462,66 +468,6 @@ simulatetrial <- function(ii,
         sampefftotal = processedfitresult.rand$sampefftotal
         post.prob.btcontrol = processedfitresult.rand$post.prob.btcontrol
 
-        #-Calculating posterior probability of each arm (including control) to be the best arm-
-        # post.prob.best: The posterior probability of each arm (including control) to be the best arm
-        # This is required for Thall's randomisation approach
-        for (q in 1:armleft) {
-          post.prob.best.mat[group, zlevel[q]] = (sum(max.col(sampefftotal) == q)) /
-            2500
-        }
-        post.prob.best = post.prob.best.mat[group,]
-        #Normalizing in case any value equals zero
-        post.prob.best = post.prob.best + 1e-7
-        post.prob.best = post.prob.best / sum(post.prob.best)
-        #----Justify if type I error was made for each arm----
-        # post.prob.btcontrol>cutoffeff[group]: Efficacy boundary is hit at this stage
-        # post.prob.btcontrol<cutoffful[group]: Fultility boundary is hit at this stage
-        Justify = post.prob.btcontrol > cutoffeff[group] |
-          post.prob.btcontrol < cutoffful[group]
-        #Identify which active arm should be dropped at current stage
-        treatmentdrop = treatmentindex[post.prob.btcontrol > cutoffeff[group] |
-                                         post.prob.btcontrol < cutoffful[group]]
-        stats3 = rep(NA, K - 1)
-        names(stats3) = seq(1, K - 1)
-        stats3[treatmentindex] = Justify
-        if (sum(Justify) > 0) {
-          armleft = armleft - sum(Justify)
-          #Debugged for K arm by Ziyan Wang on 12:00 26/07/2022 for three arm. Used to be treatmentindex = treatmentindex[-treatmentdrop]
-          #Debugged for K arm by Ziyan Wang on 18:58 26/07/2022 for more than 3 arm. Used to be treatmentindex = treatmentindex[!(treatmentindex==treatmentdrop)]
-          treatmentindex = treatmentindex[is.na(match(treatmentindex, treatmentdrop))]
-        }
-      }
-      else if (model.inf$tlr.inf$variable.inf == "Mixeffect.jag") {
-        jagmodel<-"  model {
-            for(i in 1:armleft){
-              for(j in 1:stage){
-                Y[i,j] ~ dbin(p[i,j],N[i,j])
-                logit(p[i,j]) = beta0 + alpha[stage-(j-1)] + beta1[i]
-              }
-            }
-           alpha[1] = 0
-           alpha[2] ~ dnorm(0, tau2)
-           for(k in 3:stage ) {
-             alpha[k] ~ dnorm(2*alpha[k-1] - alpha[k-2],tau2)
-        }
-           beta1[1] <- 0
-           for(i in 2:armleft){
-             beta1[i] ~ dnorm(0,0.31)
-           }
-              tau2 ~ dgamma(0.1, 0.01)
-           beta0 ~ dnorm(0, 0.31)
-          }"
-        postsamp.list = Mixeffect_modelling(ytemp=ytemp, treatmentindex=treatmentindex, group=group, ntemp=ntemp, armleft=armleft, jagmodel=jagmodel)
-        analysis = Mixeffect_analysis(postsamp.list=postsamp.list, group=group, treatmentindex=treatmentindex, ns = ns, K = K)
-        stats1 = analysis$stats1
-        statsbeta0 = analysis$statsbeta0
-        stats4 = analysis$stats4
-        stats5 = analysis$stats5
-        stats6 = analysis$stats6
-        stats7 = analysis$stats7
-        sampoutcome = analysis$sampoutcome
-        sampefftotal = analysis$sampefftotal
-        post.prob.btcontrol = analysis$post.prob.btcontrol
         #-Calculating posterior probability of each arm (including control) to be the best arm-
         # post.prob.best: The posterior probability of each arm (including control) to be the best arm
         # This is required for Thall's randomisation approach
