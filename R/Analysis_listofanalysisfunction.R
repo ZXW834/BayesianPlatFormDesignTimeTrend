@@ -7,6 +7,7 @@
 #'
 #' @examples
 #' \dontrun{perHtypeIerror_powerfunc(res)}
+#' @author Ziyan Wang
 perHtypeIerror_powerfunc = function(res) {
   colMeans(t(sapply(res, function(x) {
     resname = colnames(x)
