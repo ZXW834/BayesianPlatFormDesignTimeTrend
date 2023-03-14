@@ -52,6 +52,13 @@ ARmethod = function(Fixratio,
                     max.ar,
                     armleft,
                     treatmentindex) {
+  # Validate inputs
+  if (!is.logical(Fixratio)) stop("Error: Fixratio should be a logical value (TRUE/FALSE)")
+  if (!is.character(BARmethod)) stop("Error: BARmethod should be a character value")
+  if (!is.numeric(group) || group <= 0) stop("Error: group should be a positive numeric value")
+  if (!is.numeric(max.ar) || max.ar <= 0 || max.ar >= 1) stop("Error: max.ar should be a numeric value between 0 and 1")
+  if (K < 2) stop("Error: K should be an integer value greater than or equal to 2")
+
   #---------------------Trippa's approach---------------------
   if (Fixratio == F & BARmethod == "Trippa") {
     ##Tuning the paprameter using method mentioned in Trippa's paper (2014)

@@ -1,5 +1,5 @@
 Package: BayesianPlatformDesignTimeTrend
-Title: Simulate and analyse Bayesian Platform Trial with time trend
+Title: Simulate and Analyse Bayesian Platform Trial with Time Trend
 Version: 1.0.0
 Author: Ziyan Wang [aut, cre]
 Maintainer: Ziyan Wang <zw7g20@soton.ac.uk>
@@ -8,18 +8,18 @@ Authors@R:
            family = "Wang",
            role = c("aut", "cre"),
            email = "zw7g20@soton.ac.uk")
-Description: Simulating the multi-arm multi-stage or platform trial with Bayesian approach using the 'rstan' package, which provides the R interface for to the Stan. 
-    The randomisation approach in this package are fix ratio and Bayesian adaptive randomisation. 
-    In addition, the time trend problem of platform trial can be studied in this package.
-    There is a demo for multi-arm multi-stage trial with two different null scenario and a demo for Bayesian trial cutoff screening.
+Description: Simulating the multi-arm multi-stage or platform trial with Bayesian approach using the 'rstan' package, which provides the R interface for the Stan. 
+    This package supports fixed ratio and Bayesian adaptive randomization approaches for randomization. 
+    Additionally, it allows for the study of time trend problems in platform trials. 
+    There are demos available for a multi-arm multi-stage trial with two different null scenarios, as well as for Bayesian trial cutoff screening.
     The Bayesian adaptive randomisation approaches are described in:
     Trippa et al. (2012) <doi:10.1200/JCO.2011.39.8420> and
-    Wathen et al. (2017) <doi:10.1177/1740774517692302>
-    The randomisation algorithm is described in 
-    Zhao W <doi:10.1016/j.cct.2015.06.008>
+    Wathen et al. (2017) <doi:10.1177/1740774517692302>.
+    The randomisation algorithm is described in: 
+    Zhao W <doi:10.1016/j.cct.2015.06.008>.
     The analysis methods of time trend effect in platform trial are described in:
     Saville et al. (2022) <doi:10.1177/17407745221112013> and
-    Bofill Roig et al. (2022) <doi:10.1186/s12874-022-01683-w>
+    Bofill Roig et al. (2022) <doi:10.1186/s12874-022-01683-w>.
 URL: https://github.com/ZXW834/PlatFormDesignTime
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -41,8 +41,7 @@ Imports:
     foreach (>= 1.5.1),
     iterators (>= 1.0.13),
     reshape (>= 0.8.8),
-    BiocManager (>= 1.30.19),
-    rjags
+    BiocManager (>= 1.30.19)
 LinkingTo: 
     BH (>= 1.66.0),
     Rcpp (>= 0.12.0),

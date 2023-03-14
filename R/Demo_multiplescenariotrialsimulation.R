@@ -66,7 +66,7 @@ demo_multscenario = function(ntrials = 1000,
           response.probs = scenario[i,],
           ns = ns[[z]],
           max.ar = 0.75,
-          rand.type = "Urn",
+          rand.algo = "Urn",
           max.deviation = 3,
           model.inf = list(
             model = "tlr",

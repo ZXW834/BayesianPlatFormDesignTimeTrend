@@ -9,7 +9,7 @@ demo_Cutoffscreening(
   trial.fun = simulatetrial,
   grid.inf = list(start = c(0.9, 0.95, 1), extendlength = 15),
   input.info = list(response.probs = c(0.4, 0.4), ns = c(30, 60, 90, 120, 150), max.ar =
-    0.75, rand.type = "Urn", max.deviation = 3, model.inf = list(model = "tlr", ibb.inf =
+    0.75, rand.algo = "Urn", max.deviation = 3, model.inf = list(model = "tlr", ibb.inf =
     list(pi.star = 0.5, pess = 2, betabinomialmodel = ibetabinomial.post), tlr.inf =
     list(beta0_prior_mu = 0, beta1_prior_mu = 0, beta0_prior_sigma = 2.5,
     beta1_prior_sigma = 2.5, beta0_df = 7, beta1_df = 7, reg.inf = "main", variable.inf =
