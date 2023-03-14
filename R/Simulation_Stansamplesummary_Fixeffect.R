@@ -21,6 +21,7 @@
 #'
 #' @examples
 #' \dontrun{resultrtostats(trteff = NA, treatmentindex = NA, armleft, K, group, reg.inf, fit, ns)}
+#' @author Ziyan Wang
 resultrtostats = function(trteff = NA,
                           treatmentindex = NA,
                           armleft,

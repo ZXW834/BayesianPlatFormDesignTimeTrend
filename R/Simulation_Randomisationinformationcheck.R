@@ -10,12 +10,13 @@
 #' @export
 #'
 #' @examples
-#' Randomisation.inf = function(Random.inf = list(
+#' Randomisation.inf(Random.inf = list(
 #' Fixratio = FALSE,
 #' Fixratiocontrol = NA,
 #' BARmethod = "Thall",
 #' Thall.tuning.inf = list(tuningparameter = "Fixed",  fixvalue = 1)
 #' ))
+#' @author Ziyan Wang
 Randomisation.inf = function(Random.inf = list(
   Fixratio = FALSE,
   Fixratiocontrol = NA,

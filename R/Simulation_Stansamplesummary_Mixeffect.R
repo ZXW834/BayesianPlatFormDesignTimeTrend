@@ -20,6 +20,7 @@
 #'
 #' @examples
 #' \dontrun{resultrtostats.rand(trteff = NA, treatmentindex = NA, armleft, K, group, fit, ns)}
+#' @author Ziyan Wang
 resultrtostats.rand = function(trteff = NA,
                                treatmentindex = NA,
                                armleft,

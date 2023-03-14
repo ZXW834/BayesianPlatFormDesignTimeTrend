@@ -25,6 +25,7 @@
 #'
 #' @examples
 #' \dontrun{resultstantoRfunc(group, reg.inf, fit, armleft, treatmentindex, K, ns)}
+#' @author Ziyan Wang
 resultstantoRfunc = function(group,
                              reg.inf,
                              fit,

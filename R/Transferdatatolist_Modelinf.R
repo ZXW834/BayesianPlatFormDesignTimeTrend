@@ -28,6 +28,7 @@
 #'                  reg.inf =  "main",
 #'                  variable.inf = "Fixeffect"
 #'                  ))
+#' @author Ziyan Wang
 modelinf.fun <- function(model = "tlr",
                       ibb.inf = list(pi.star = 0.5,
                                      pess = 2,

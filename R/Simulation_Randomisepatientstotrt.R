@@ -2,7 +2,7 @@
 #' @description This is a function doing the randomisation process. This Function generates the Sequence for patient allocation to each arm, patient outcomes.
 
 #' @param Fixratio A indicator TRUE/FALSE
-#' @param rand.type "Coin": Biased coin; "Urn": Urn method
+#' @param rand.algo Randomisation algorithm: "Coin": Biased coin; "Urn": Urn method
 #' @param K Total number of arms at the beginning
 #' @param n.new The cohort size
 #' @param randomprob A named vector of randomisation probability to each arm
@@ -31,7 +31,7 @@
 #' @examples
 #' AdaptiveRandomisation(
 #' Fixratio = FALSE,
-#' rand.type = "Urn",
+#' rand.algo = "Urn",
 #' K = 2,
 #' n.new = 30,
 #' randomprob = matrix(c(0.5, 0.5), ncol = 2, dimnames = list(c(),c("1","2"))),
@@ -45,8 +45,11 @@
 #' trend.effect = c(0, 0),
 #' ns = c(30, 60, 90, 120, 150),
 #' Fixratiocontrol = NA)
+#'
+#' @references Mass weighted urn design—a new randomization algorithm for unequal allocations. Zhao, Wenle. Contemporary clinical trials 43 (2015): 209-216.
+#' @author Ziyan Wang
 AdaptiveRandomisation = function(Fixratio,
-                                 rand.type,
+                                 rand.algo,
                                  K,
                                  n.new,
                                  randomprob,
@@ -63,7 +66,7 @@ AdaptiveRandomisation = function(Fixratio,
   #unfix ratio
   if (Fixratio == FALSE) {
     #Generate assignments and outcomes for current interval
-    if (rand.type == "Coin") {
+    if (rand.algo == "Coin") {
       #Assuming K arms including Control (K-1 treatment vs 1 Control)
 
       #Randomisation to each k arm including control arm, where rand.prob=c(AR1,AR2,AR3,...,ARK-1) for K arm allocation
@@ -87,7 +90,7 @@ AdaptiveRandomisation = function(Fixratio,
       })
       ynew = rowSums(y.outcome.for.each.k)
     }
-    if (rand.type == "Urn") {
+    if (rand.algo == "Urn") {
       #Data generation
       outcome = NULL
       allocation = NULL

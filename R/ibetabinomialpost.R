@@ -18,7 +18,7 @@
 #' y <- c(12,12,12,6)
 #' ibetabinomial.post(n, y, pi.star = 0.5, pess = 2)
 #' #[1] 0.5000000 0.5000000 0.0308018
-#'
+#' @author Ziyan Wang
 ibetabinomial.post = function(n, y, pi.star = 0.5, pess = 2) {
   #First element of n and y are from control
   K = length(n)

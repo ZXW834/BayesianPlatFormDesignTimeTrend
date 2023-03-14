@@ -16,17 +16,15 @@
 #'
 #' @examples
 #' set.seed(1)
-#' Trial.simulation(ntrials = 10, cl = 2)
-#' \dontshow{
-#' ## R CMD check: make sure any open connections are closed afterward
-#' doParallel::stopImplicitCluster()}
+#' \donttest{Trial.simulation(ntrials = 2, cl = 2)}
+#' @author Ziyan Wang
 Trial.simulation = function(ntrials = 5000,
                             trial.fun = simulatetrial,
                             input.info = list(
                               response.probs = c(0.4, 0.4),
                               ns = c(30, 60, 90, 120, 150),
                               max.ar = 0.75,
-                              rand.type = "Urn",
+                              rand.algo = "Urn",
                               max.deviation = 3,
                               model.inf = list(
                                 model = "tlr",
@@ -64,12 +62,13 @@ Trial.simulation = function(ntrials = 5000,
                               )
                             ),
                             cl = 2) {
+  old <- options()# code line i
   rstan_options(auto_write = TRUE)
   options(mc.cores = parallel::detectCores(logical = FALSE))
 
   registerDoParallel(cores = cl)
 
-  print("Start trial information initialisation")
+  message("Start trial information initialisation")
   #-Initialising evaluation metrics-
   bias = {
 
@@ -103,7 +102,7 @@ Trial.simulation = function(ntrials = 5000,
     response.probs = input.info$response.probs,
     ns = input.info$ns,
     max.ar = input.info$max.ar,
-    rand.type = input.info$rand.type,
+    rand.algo = input.info$rand.algo,
     max.deviation = input.info$max.deviation,
     model.inf = input.info$model.inf,
     Stopbound.inf = input.info$Stopbound.inf,
@@ -171,6 +170,8 @@ Trial.simulation = function(ntrials = 5000,
       length(input.info$ns),
       input.info$model.inf$tlr.inf$reg.inf
     )
+  doParallel::stopImplicitCluster()
+  on.exit(options(old))
   return(list(
     result = result,
     OPC = OPC,

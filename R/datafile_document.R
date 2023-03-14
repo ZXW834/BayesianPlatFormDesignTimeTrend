@@ -20,7 +20,7 @@
 #'   \item{\code{Survive.per.arm.4}}{double Mean total number of patient survived when usin treatment 3}
 #'   \item{\code{N}}{double Mean total number of patient in a trial}
 #'}
-#' @source \url{http://somewhere.important.com/}
+
 "OPC_alt"
 
 #' @title Operation characteristic table for null scenario
@@ -45,7 +45,7 @@
 #'   \item{\code{Survive.per.arm.4}}{double Mean total number of patient survived when usin treatment 3}
 #'   \item{\code{N}}{double Mean total number of patient in a trial}
 #'}
-#' @source \url{http://somewhere.important.com/}
+
 "OPC_null"
 
 #' @title Cutoff screening example: the recommended grid value at each time point
@@ -54,7 +54,7 @@
 #' \describe{
 #'   \item{\code{recommandloginformd}}{double The cutoff value at each time point}
 #'}
-#' @source \url{http://somewhere.important.com/}
+
 "recommandloginformd"
 
 #' @title Cutoff screening example: the predicted value from quadratic model
@@ -63,7 +63,7 @@
 #' \describe{
 #'   \item{\code{predictedtpIEinformd}}{double The predicted FWER value of a large grid}
 #'}
-#' @source \url{http://somewhere.important.com/}
+
 "predictedtpIEinformd"
 
 #' @title Cutoff screening example: the details of grid
@@ -74,7 +74,7 @@
 #'   \item{\code{cutoff}}{double Cutoff value}
 #'   \item{\code{cutoff2}}{double Square of cutoff value}
 #'}
-#' @source \url{http://somewhere.important.com/}
+
 "dataloginformd"
 
 

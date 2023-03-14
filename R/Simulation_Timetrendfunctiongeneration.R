@@ -17,6 +17,7 @@
 #'                trend.effect = c(0, 0),
 #'                trend_add_or_multip = "mult"
 #'                ))
+#' @author Ziyan Wang
 Timetrend.fun = function(trend.inf) {
   #Time trend pattern function
   trend.type = trend.inf$trend.type

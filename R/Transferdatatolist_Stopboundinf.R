@@ -26,6 +26,7 @@
 #' #[1] "Symmetric"
 #' #$cutoff
 #' # [1] 0.9928 0.0072
+#' @author Ziyan Wang
 Stopboundinf = function(Stop.type="Early-Pocock", Boundary.type="Symmetric", cutoff=c(0.9928, 0.0072)) {
   if (Boundary.type == "Symmetric") {
     if (Stop.type == "Early-OBF" & cutoff[1] == cutoff[2]) {
