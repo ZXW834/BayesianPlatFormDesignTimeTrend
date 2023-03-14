@@ -25,9 +25,6 @@ A data frame with 3 rows and 16 variables:
 \item{\code{N}}{double Mean total number of patient in a trial}
 }
 }
-\source{
-\url{http://somewhere.important.com/}
-}
 \usage{
 OPC_alt
 }

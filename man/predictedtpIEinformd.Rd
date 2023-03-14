@@ -10,9 +10,6 @@ A data frame with 1001 rows and 1 variables:
 \item{\code{predictedtpIEinformd}}{double The predicted FWER value of a large grid}
 }
 }
-\source{
-\url{http://somewhere.important.com/}
-}
 \usage{
 predictedtpIEinformd
 }

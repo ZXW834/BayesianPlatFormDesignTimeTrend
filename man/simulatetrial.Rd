@@ -89,3 +89,6 @@ simulatetrial(response.probs = c(0.4, 0.4),
                trend_add_or_multip = "mult"
                ))
 }
+\author{
+Ziyan Wang
+}

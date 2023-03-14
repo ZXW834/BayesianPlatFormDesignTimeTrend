@@ -44,3 +44,6 @@ The inner function of function \code{\link{resultstantoRfunc.rand}}
 \examples{
 \dontrun{resultrtostats.rand(trteff = NA, treatmentindex = NA, armleft, K, group, fit, ns)}
 }
+\author{
+Ziyan Wang
+}

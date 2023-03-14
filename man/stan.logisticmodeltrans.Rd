@@ -59,3 +59,6 @@ group = 1,
 variable.inf = "Fixeffect",
 reg.inf = "main")
 }
+\author{
+Ziyan Wang
+}

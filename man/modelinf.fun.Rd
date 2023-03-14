@@ -47,3 +47,6 @@ modelinf.fun(model = "tlr",
                  variable.inf = "Fixeffect"
                  ))
 }
+\author{
+Ziyan Wang
+}

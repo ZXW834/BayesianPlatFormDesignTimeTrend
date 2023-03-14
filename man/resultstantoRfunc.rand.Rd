@@ -39,3 +39,6 @@ This function summarise the mix effect stan output data to and transform them to
 \examples{
 \dontrun{resultstantoRfunc.rand(group, fit, armleft, treatmentindex, K, ns)}
 }
+\author{
+Ziyan Wang
+}

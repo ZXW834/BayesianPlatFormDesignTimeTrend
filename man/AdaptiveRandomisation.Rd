@@ -6,7 +6,7 @@
 \usage{
 AdaptiveRandomisation(
   Fixratio,
-  rand.type,
+  rand.algo,
   K,
   n.new,
   randomprob,
@@ -25,7 +25,7 @@ AdaptiveRandomisation(
 \arguments{
 \item{Fixratio}{A indicator TRUE/FALSE}
 
-\item{rand.type}{"Coin": Biased coin; "Urn": Urn method}
+\item{rand.algo}{Randomisation algorithm: "Coin": Biased coin; "Urn": Urn method}
 
 \item{K}{Total number of arms at the beginning}
 
@@ -67,7 +67,7 @@ This is a function doing the randomisation process. This Function generates the 
 \examples{
 AdaptiveRandomisation(
 Fixratio = FALSE,
-rand.type = "Urn",
+rand.algo = "Urn",
 K = 2,
 n.new = 30,
 randomprob = matrix(c(0.5, 0.5), ncol = 2, dimnames = list(c(),c("1","2"))),
@@ -81,4 +81,11 @@ trend.function = function(ns, group, i, trend.effect) {delta = 0; return(delta)}
 trend.effect = c(0, 0),
 ns = c(30, 60, 90, 120, 150),
 Fixratiocontrol = NA)
+
+}
+\references{
+Mass weighted urn design—a new randomization algorithm for unequal allocations. Zhao, Wenle. Contemporary clinical trials 43 (2015): 209-216.
+}
+\author{
+Ziyan Wang
 }

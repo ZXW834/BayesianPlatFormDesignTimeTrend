@@ -27,3 +27,6 @@ Timetrend.fun(trend.inf = list(
                trend_add_or_multip = "mult"
                ))
 }
+\author{
+Ziyan Wang
+}

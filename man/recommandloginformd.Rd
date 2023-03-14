@@ -10,9 +10,6 @@ A data frame with 20 rows and 1 variables:
 \item{\code{recommandloginformd}}{double The cutoff value at each time point}
 }
 }
-\source{
-\url{http://somewhere.important.com/}
-}
 \usage{
 recommandloginformd
 }

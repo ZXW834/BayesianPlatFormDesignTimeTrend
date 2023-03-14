@@ -8,7 +8,7 @@ Trial.simulation(
   ntrials = 5000,
   trial.fun = simulatetrial,
   input.info = list(response.probs = c(0.4, 0.4), ns = c(30, 60, 90, 120, 150), max.ar =
-    0.75, rand.type = "Urn", max.deviation = 3, model.inf = list(model = "tlr", ibb.inf =
+    0.75, rand.algo = "Urn", max.deviation = 3, model.inf = list(model = "tlr", ibb.inf =
     list(pi.star = 0.5, pess = 2, betabinomialmodel = ibetabinomial.post), tlr.inf =
     list(beta0_prior_mu = 0, beta1_prior_mu = 0, beta0_prior_sigma = 2.5,
     beta1_prior_sigma = 2.5, beta0_df = 7, beta1_df = 7, reg.inf = "main", variable.inf =
@@ -40,8 +40,8 @@ The time cost of this function depend on the cpu cores of the user's cpmputer.
 }
 \examples{
 set.seed(1)
-Trial.simulation(ntrials = 10, cl = 4)
-\dontshow{
-## R CMD check: make sure any open connections are closed afterward
-doParallel::stopImplicitCluster()}
+\donttest{Trial.simulation(ntrials = 2, cl = 2)}
+}
+\author{
+Ziyan Wang
 }

@@ -70,4 +70,12 @@ post.prob.best = c(0.5, 0.5),
 max.ar = 0.75,
 armleft = 2,
 treatmentindex = 1)
+
+}
+\references{
+Bayesian adaptive randomized trial design for patients with recurrent glioblastoma. Trippa, Lorenzo, Eudocia Q. Lee, Patrick Y. Wen, Tracy T. Batchelor, Timothy Cloughesy, Giovanni Parmigiani, and Brian M. Alexander. Journal of Clinical Oncology 30, no. 26 (2012): 3258.
+A simulation study of outcome adaptive randomization in multi-arm clinical trials. Wathen, J. Kyle, and Peter F. Thall. Clinical Trials 14, no. 5 (2017): 432-440.
+}
+\author{
+Ziyan Wang
 }

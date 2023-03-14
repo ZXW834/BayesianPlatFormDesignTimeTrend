@@ -23,10 +23,13 @@ A list of input randomisation information
 This function checks the validity of the randomisation information input
 }
 \examples{
-Randomisation.inf = function(Random.inf = list(
+Randomisation.inf(Random.inf = list(
 Fixratio = FALSE,
 Fixratiocontrol = NA,
 BARmethod = "Thall",
 Thall.tuning.inf = list(tuningparameter = "Fixed",  fixvalue = 1)
 ))
+}
+\author{
+Ziyan Wang
 }

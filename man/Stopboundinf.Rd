@@ -42,3 +42,6 @@ Stopbound.inf = Stopboundinf(Stop.type, Boundary.type, cutoff)
 #$cutoff
 # [1] 0.9928 0.0072
 }
+\author{
+Ziyan Wang
+}

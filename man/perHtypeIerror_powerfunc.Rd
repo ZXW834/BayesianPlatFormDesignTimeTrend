@@ -18,3 +18,6 @@ This function reads in the output matrix of a number of trial replicates to calc
 \examples{
 \dontrun{perHtypeIerror_powerfunc(res)}
 }
+\author{
+Ziyan Wang
+}

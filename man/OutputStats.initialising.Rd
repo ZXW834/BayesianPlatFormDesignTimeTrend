@@ -30,3 +30,6 @@ OutputStats.initialising(
     ns = c(15, 30, 45, 60, 75),
     K = 2)
 }
+\author{
+Ziyan Wang
+}

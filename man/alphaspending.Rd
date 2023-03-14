@@ -25,3 +25,6 @@ Example usage:
 \examples{
 \dontrun{alphaspending(res)}
 }
+\author{
+Ziyan Wang
+}

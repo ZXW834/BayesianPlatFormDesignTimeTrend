@@ -41,3 +41,6 @@ This function summarise the fix effect stan output data to and transform them to
 \examples{
 \dontrun{resultstantoRfunc(group, reg.inf, fit, armleft, treatmentindex, K, ns)}
 }
+\author{
+Ziyan Wang
+}

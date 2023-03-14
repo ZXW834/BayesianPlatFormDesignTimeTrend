@@ -39,8 +39,9 @@ A vector of recommended cutoff. The final value is the latest recommended value.
 This function does a cutoff screening for trial simulation.
 }
 \examples{
-demo_Cutoffscreening(ntrials = 10, cl = 4)
-\dontshow{
-## R CMD check: make sure any open connections are closed afterward
-doParallel::stopImplicitCluster()}
+\donttest{demo_Cutoffscreening(ntrials = 2, cl = 2,
+    grid.inf = list(start = c(0.9, 0.95, 1), extendlength = 2))}
+}
+\author{
+Ziyan Wang
 }

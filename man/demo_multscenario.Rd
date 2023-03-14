@@ -11,7 +11,7 @@ demo_multscenario(ntrials = 1000, cl = 2, save_data = FALSE)
 
 \item{cl}{A numeric variable indicating how many cores you want to use in parallel programming.}
 
-\item{save_data}{An indicator of whether the outputdata need to be saved. Default is FALSE.}
+\item{save_data}{An indicator of whether the output data need to be saved. Default is FALSE.}
 }
 \value{
 A list of data for plotting. One is results of trial replicates for all scenarios. The other one is a data frame containing all summarised evaluation metrics for all scenarios
@@ -21,8 +21,8 @@ This is a demo function simulating multi-arm multi-stage design with two differe
 The clinically meaningful increment on probability scale is 0.2. The stopping boundary is the OBF. The cutoff vector in the demo is tuned to keep Type I error rate to be 0.05. The output data can be saved as .RData file
 }
 \examples{
-demo_multscenario(ntrials = 10, cl = 4, save_data = FALSE)
-\dontshow{
-## R CMD check: make sure any open connections are closed afterward
-doParallel::stopImplicitCluster()}
+\donttest{demo_multscenario(ntrials = 2, cl = 2, save_data = FALSE)}
+}
+\author{
+Ziyan Wang
 }

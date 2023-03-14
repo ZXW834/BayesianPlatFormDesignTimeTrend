@@ -73,4 +73,8 @@ Initializetrialparameter(response.probs = c(0.4,0.6), ns = c(15,30,45,60,75,90))
 #[4,] 0 0
 #[5,] 0 0
 #[6,] 0 0
+
+}
+\author{
+Ziyan Wang
 }

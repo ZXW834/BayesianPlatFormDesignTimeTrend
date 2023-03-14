@@ -22,3 +22,6 @@ This function constructs the stopping boundary based on input information
  ns=c(60,120,180,240,300)
  Boundaryconstruction(Stopbound.inf, ns)
 }
+\author{
+Ziyan Wang
+}

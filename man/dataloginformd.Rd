@@ -12,9 +12,6 @@ A data frame with 24 rows and 3 variables:
 \item{\code{cutoff2}}{double Square of cutoff value}
 }
 }
-\source{
-\url{http://somewhere.important.com/}
-}
 \usage{
 dataloginformd
 }

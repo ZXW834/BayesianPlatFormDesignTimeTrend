@@ -47,3 +47,6 @@ This is an inner function of the function \code{\link{resultstantoRfunc}}
 \examples{
 \dontrun{resultrtostats(trteff = NA, treatmentindex = NA, armleft, K, group, reg.inf, fit, ns)}
 }
+\author{
+Ziyan Wang
+}
