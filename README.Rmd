@@ -22,11 +22,11 @@ The goal of BayesianPlatformDesignTimeTrend is to simulates the multi-arm multi-
 
 ## Installation
 
-You can install the 'BayesianPlatformDesignTimeTrend' package 1.0.0 like so:
+You can install the 'BayesianPlatformDesignTimeTrend' package 1.1.1 like so:
 
 ``` {r}
 # install.packages("BayesianPlatformDesignTimeTrend")
-devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
+# devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
 ```
 
 ## Demo
@@ -41,16 +41,18 @@ devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
-library(BayesianPlatformDesignTimeTrend)
+```{r}
+# library(BayesianPlatformDesignTimeTrend)
 ## basic example code
-Trial.simulation (ntrials = 10,
+```
+```{r, eval=FALSE}
+output=Trial.simulation(ntrials = 10000,
 trial.fun = simulatetrial,
  input.info = list(
    response.probs = c(0.4, 0.4),
-   ns = c(30, 60, 90, 120, 150),
+   ns = c(60, 120, 180, 240, 300),
    max.ar = 0.75,
-   rand.type = "Urn",
+   rand.algo = "Urn",
    max.deviation = 3,
    model.inf = list(
      model = "tlr",
@@ -73,7 +75,7 @@ trial.fun = simulatetrial,
    Stopbound.inf = Stopboundinf(
      Stop.type = "Early-Pocock",
        Boundary.type = "Symmetric",
-         cutoff = c(0.99, 0.01)
+         cutoff = c(0.9925, 0.0075)
          ),
    Random.inf = list(
      Fixratio = FALSE,
@@ -88,5 +90,16 @@ trial.fun = simulatetrial,
    )
  ),
  cl = 2)
+```
+Here is the operational characteristics table for previous single null scenario simulation.
+```{r,eval=FALSE}
+output$OPC
+```
+```{r example}
+#>  $OPC
+#>                          Type.I.Error.or.Power       Bias        rMSE     N.per.arm.1
+#>0404TimeTrend00stage5main                0.0444  0.0007538   0.3390904        146.4978
+#>                          N.per.arm.2    Survive.per.arm.1    Survive.per.arm.2          N
+#>0404TimeTrend00stage5main    146.7282               58.552              58.6241    293.226
 ```
 

@@ -81,3 +81,60 @@ I will describe the comments and their solution as follows.
 > ...
 > e.g.: -> R/Demo_CutoffScreening.R; R/TrialSimulation.R
 > If you're not familiar with the function, please check ?on.exit. This function makes it possible to restore options before exiting a function even if the function breaks. Therefore it needs to be called immediately after the option change within a function.
+
+- I add old <- options() at the beginning of Demo_CutoffScreening.R and TrialSimulation.R
+- I add on.exit(options(old)) at the end of Demo_CutoffScreening.R and TrialSimulation.R
+
+# Mar 15, 2023, BayesianPlatformDesignTimeTrend version 1.0.0 (resubmission)
+## Major changes
+I fixed some parts commented by the CRAN team, Benjamin Altmann.
+I will describe the comments and their solution as follows.
+
+> The Title field should be in title case. Current version is:
+>   'Simulate and analyse Bayesian Platform Trial with time trend'
+> In title case that is:
+>   'Simulate and Analyse Bayesian Platform Trial with Time Trend'
+
+- I modified the title to 'Simulate and Analyse Bayesian Platform Trial with Time Trend'
+
+> Please spellcheck your description. It currently reads:
+>     "...the R interface for to the Stan. ..." -> "...the R interfacevfor the Stan. ..."
+
+- I revise the spell to "the R interfacev for the Stan"
+
+> Please add the on.exit() call right after defining old <- options(). e.g.: in R/TrialSimulation.R in line 65
+
+- I add the on.exit after old <- option()
+
+> Please always add all authors, contributors and copyright holders in the Authors@R field with the appropriate roles.
+> From CRAN policies you agreed to:
+>"The ownership of copyright and intellectual property rights of all components of the package must be clear and unambiguous (including from the authors specification in the DESCRIPTION file). Where code is copied (or derived) from the work of others (including from R itself), care must be taken that any copyright/license statements are preserved and
+authorship is not misrepresented.
+> Preferably, an ‘Authors@R’ would be used with ‘ctb’ roles for the authors of such code. Alternatively, the ‘Author’ field should list these authors as contributors. Where copyrights are held by an entity other than the package authors, this should preferably be indicated via ‘cph’ roles in the ‘Authors@R’ field, or using a ‘Copyright’ field (if necessary referring to an inst/COPYRIGHTS file)."
+> e.g.: In your LICENSE file you claim 'PlatFormDesign authors' to be copyrightholder. Do you mean yourself with this?
+> Please explain in the submission comments what you did about this issue.
+
+- I have revise the LICENSE file, which was created in previous version. I changed the name of the package after that but did not revise the LICENSE file
+
+
+# Jun 11, 2023, BayesianPlatformDesignTimeTrend version 1.1.1 (fix bug)
+> ## No test: 
+> demo_Cutoffscreening.GP(ntrials = 2, cl = 2,
+> +     grid.inf = list(
+> +     start.length = 10,
+> +     confidence.level = 0.95,
+> +     grid.length = 5000,
+> +     change.scale = FALSE,
+> +     noise = TRUE,
+> +     errorrate = 0.1,
+> +     simulationerror = 0.01,
+> +     iter.max = 15,
+> +     plotornot = FALSE))
+> Start the start grid screening
+> Error in sample.int(x, size, replace, prob) : 
+>  incorrect number of probabilities
+> Calls: demo_Cutoffscreening.GP -> GP.optim -> sample -> sample.int
+> Execution halted
+
+- I fixed the bug in function `GP.optim` where the nextcutoff vector for sample may have only one element. This will lead to the error in function `sample` when you only want to sample one value greater than 1.
+- The argument 'ntrials' in each example should be large (> 100) instead 2 to make the example more like an actual simulation example. I use ntrials = 2 in the example to speed up the check process.
