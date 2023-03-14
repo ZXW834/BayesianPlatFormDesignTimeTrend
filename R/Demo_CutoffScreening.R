@@ -20,10 +20,9 @@
 #' @export
 #'
 #' @examples
-#' demo_Cutoffscreening(ntrials = 100, cl = 2)
-#' \dontshow{
-#' ## R CMD check: make sure any open connections are closed afterward
-#' doParallel::stopImplicitCluster()}
+#' \donttest{demo_Cutoffscreening(ntrials = 2, cl = 2,
+#'     grid.inf = list(start = c(0.9, 0.95, 1), extendlength = 2))}
+#' @author Ziyan Wang
 demo_Cutoffscreening = function(ntrials = 1000,
                                 trial.fun = simulatetrial,
                                 grid.inf = list(start = c(0.9, 0.95, 1), extendlength =
@@ -67,6 +66,7 @@ demo_Cutoffscreening = function(ntrials = 1000,
                                   )
                                 ),
                                 cl = 2) {
+  old <- options()# code line i
   #Set start grid of screening
   startgrid <-
     data.frame(tpIE = rep(NA, length(grid.inf$start)), cutoff = grid.inf$start)
@@ -81,7 +81,7 @@ demo_Cutoffscreening = function(ntrials = 1000,
   options(mc.cores = parallel::detectCores(logical = FALSE))
 
   registerDoParallel(cores = cl)
-  print("Start the start grid screening")
+  message("Start the start grid screening")
   for (j in 1:dim(startgrid)[1]) {
     #Construct the stop.inf list
     Stopbound.inf = Stopboundinf(
@@ -126,7 +126,7 @@ demo_Cutoffscreening = function(ntrials = 1000,
   recommand = {
 
   }
-  print(paste("Start the extend grid screening.","There are", grid.inf$extendlength ,"cutoff values under investigation in the extend grid"))
+  message(paste("Start the extend grid screening.","There are", grid.inf$extendlength ,"cutoff values under investigation in the extend grid"))
   for (cutoffindex in 1:(dim(extendgrid)[1])) {
     #Construct the stop.inf list
     Stopbound.inf = Stopboundinf(
@@ -166,9 +166,9 @@ demo_Cutoffscreening = function(ntrials = 1000,
     }
     extendgrid[cutoffindex + 1, 2] = sample(potentialcutoff, 1, replace = T, prob = randomprobability)
     recommand = c(recommand, cutoffgrid[as.numeric(names(which.max(randomprobability)))])
-    print(paste("Finished extend grid screening round", cutoffindex))
+    message(paste("Finished extend grid screening round", cutoffindex))
   }
-  print("Output data recording")
+  message("Output data recording")
   dataloginformd = data.frame(rbind(startgrid, extendgrid))
   recommandloginformd = recommand
   quadratic.model <-
@@ -177,6 +177,8 @@ demo_Cutoffscreening = function(ntrials = 1000,
   predictedtpIEinformd <-
     predict(quadratic.model,
             list(cutoff = cutoffgrid, cutoff2 = cutoffgrid ^ 2))
+  doParallel::stopImplicitCluster()
+  on.exit(options(old))
   return(
     list(
       detailsforgrid = dataloginformd,
@@ -184,8 +186,4 @@ demo_Cutoffscreening = function(ntrials = 1000,
       predictedtpIEinformd = predictedtpIEinformd
     )
   )
-  # save(dataloginformd,
-  #      recommandloginformd,
-  #      predictedtpIEinformd,
-  #      file = "notrend_screening150_s5_twoarm04_ARThall_Pocock-Symmetric-earlystop.RData")
 }
