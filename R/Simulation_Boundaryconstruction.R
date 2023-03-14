@@ -13,6 +13,7 @@
 #'  Stopbound.inf=list(Stop.type="Early-Pocock",Boundary.type="Symmetric",cutoff=c(0.9928,0.0072))
 #'  ns=c(60,120,180,240,300)
 #'  Boundaryconstruction(Stopbound.inf, ns)
+#' @author Ziyan Wang
 Boundaryconstruction = function(Stopbound.inf = Stopbound.inf, ns = ns) {
   cutoff.temp = Stopbound.inf$cutoff #(cutoff1, cutoff2): cutoff1 is efficacy cutoff; cutoff2 is futility cutoff
   if (length(cutoff.temp) != 2 | sum(is.na(cutoff.temp)) != 0) {

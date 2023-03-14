@@ -12,6 +12,7 @@
 #'
 #' @examples
 #' \dontrun{alphaspending(res)}
+#' @author Ziyan Wang
 alphaspending = function(res) {
   K = mean(sapply(res, function(x) {
     K = sum(stringr::str_detect(colnames(x), "H")) + 1

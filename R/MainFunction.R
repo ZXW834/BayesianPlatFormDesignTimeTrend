@@ -55,6 +55,7 @@
 #'                trend.effect = c(0, 0),
 #'                trend_add_or_multip = "mult"
 #'                ))
+#' @author Ziyan Wang
 simulatetrial <- function(ii,
                            response.probs = c(0.4, 0.4),
                            ns = c(30, 60, 90, 120, 150),
@@ -439,7 +440,8 @@ simulatetrial <- function(ii,
         )
 
         beta0 = matrix(rstan::extract(fit, 'b_Intercept')[[1]], ncol = 1)
-        statsbeta0 = colMeans(beta0)
+        beta1 = rstan::extract(fit, "beta")[[1]]
+        statsbeta0 = mean(beta0+beta1[,1])
 
         processedfitresult.rand = resultstantoRfunc.rand(
           group = group,
@@ -510,7 +512,7 @@ simulatetrial <- function(ii,
            beta0 ~ dnorm(0, 0.31)
           }"
         postsamp.list = Mixeffect_modelling(ytemp=ytemp, treatmentindex=treatmentindex, group=group, ntemp=ntemp, armleft=armleft, jagmodel=jagmodel)
-        analysis = Mixeffect_analysis(postsamp.list=postsamp.list, group=group, treatmentindex=treatmentindex, ns = ns)
+        analysis = Mixeffect_analysis(postsamp.list=postsamp.list, group=group, treatmentindex=treatmentindex, ns = ns, K = K)
         stats1 = analysis$stats1
         statsbeta0 = analysis$statsbeta0
         stats4 = analysis$stats4

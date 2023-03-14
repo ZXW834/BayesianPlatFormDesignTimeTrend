@@ -4,21 +4,20 @@
 #'
 #' @param ntrials A numeric value. The number of total trail replicates for each scenario.
 #' @param cl A numeric variable indicating how many cores you want to use in parallel programming.
-#' @param save_data An indicator of whether the outputdata need to be saved. Default is FALSE.
+#' @param save_data An indicator of whether the output data need to be saved. Default is FALSE.
 #'
 #' @return A list of data for plotting. One is results of trial replicates for all scenarios. The other one is a data frame containing all summarised evaluation metrics for all scenarios
 #' @export
 #'
 #' @examples
-#' demo_multscenario(ntrials = 10, cl = 2, save_data = FALSE)
-#' \dontshow{
-#' ## R CMD check: make sure any open connections are closed afterward
-#' doParallel::stopImplicitCluster()}
+#' \donttest{demo_multscenario(ntrials = 2, cl = 2, save_data = FALSE)}
+#' @author Ziyan Wang
 demo_multscenario = function(ntrials = 1000,
                              cl = 2,
                              save_data = FALSE) {
-  print("Start trial information initialisation")
-  ns = list(seq(60, 300, 60), seq(30, 300, 30))
+  message("Start trial information initialisation")
+  # ns = list(seq(60, 300, 60), seq(30, 300, 30))
+  ns = list(seq(60, 300, 60))
   null.response.probs1 = 0.15
   alt.response.probs1 = 0.35
   null.response.probs2 = 0.4
@@ -39,7 +38,7 @@ demo_multscenario = function(ntrials = 1000,
     byrow = T
   )
 
-  cutoffearlyOBF = c(4.391, 4.661, 4.391, 4.661, 4.281, 4.512, 4.281, 4.512)
+  cutoffearlyOBF = c(4.391, 4.661, 4.281, 4.512)
 
   result = {
 
@@ -48,12 +47,12 @@ demo_multscenario = function(ntrials = 1000,
 
   }
   cutoffindex = 1
-  print(
+  message(
     "Start trial simulation. This is a two arm trial simulation. There are two null scenarios and two alternative scenarios and for each scenario there are two vectors of number of patients at each stage in this demo. There are 8 rounds."
   )
   for (i in 1:dim(scenario)[1]) {
     for (z in 1:length(ns)) {
-      print(paste(
+      message(paste(
         "Scenario",
         i,
         "with patient number sequence",
@@ -109,7 +108,7 @@ demo_multscenario = function(ntrials = 1000,
       cutoffindex = cutoffindex + 1
       result = c(result, restlr$result)
       OPC = rbind(OPC, restlr$OPC)
-      print(paste("Finished round", cutoffindex))
+      message(paste("Finished round", cutoffindex))
     }
   }
   if (isTRUE(save_data)) {
