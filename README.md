@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# PlatFormDesignTimeTrend
+# BayesianPlatformDesignTimeTrend
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PlatFormDesignTimeTrend is to simulates the multi-arm
+The goal of BayesianPlatformDesignTimeTrend is to simulates the multi-arm
 multi-stage or platform trial with Bayesian approach using the ‘rstan’
 package, which provides the R interface for to the stan. The package
 uses Thall’s and Trippa’s randomisation approach for Bayesian adaptive
@@ -16,10 +16,10 @@ trial for two different null scenario in this package.
 
 ## Installation
 
-You can install the ‘PlatFormDesignTimeTrend’ package 1.0.0 like so:
+You can install the ‘BayesianPlatformDesignTimeTrend’ package 1.0.0 like so:
 
 ``` r
-# install.packages("PlatFormDesignTimeTrend")
+# install.packages("BayesianPlatformDesignTimeTrend")
 devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
 ```
 
@@ -42,7 +42,7 @@ devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(PlatFormDesignTimeTrend)
+library(BayesianPlatformDesignTimeTrend)
 #> Loading required package: rstan
 #> Loading required package: StanHeaders
 #> Loading required package: ggplot2
