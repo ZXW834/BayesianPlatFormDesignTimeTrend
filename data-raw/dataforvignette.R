@@ -15,4 +15,10 @@ load("data-raw/DATAEARLYcstagenullARTHALL.RData")
 DATA_null = result
 load("data-raw/DATAEARLYcstagealtARTHALL.RData")
 DATA_alt = result
-usethis::use_data(dataloginformd, recommandloginformd, predictedtpIEinformd, OPC_null, OPC_alt, overwrite = TRUE)
+
+load("data-raw/TABLEOPC_Trial.simulationforreadme.RData")
+OPC_Trial.simulation=OPC_Trial.simulation
+
+usethis::use_data(dataloginformd, recommandloginformd, predictedtpIEinformd,
+                  OPC_null, OPC_alt,OPC_Trial.simulation,
+                  DATA_Trial.simulation, overwrite = TRUE)

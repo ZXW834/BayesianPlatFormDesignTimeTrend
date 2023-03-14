@@ -63,6 +63,7 @@ Trial.simulation = function(ntrials = 5000,
                             ),
                             cl = 2) {
   old <- options()# code line i
+  on.exit(options(old))
   rstan_options(auto_write = TRUE)
   options(mc.cores = parallel::detectCores(logical = FALSE))
 
@@ -171,7 +172,6 @@ Trial.simulation = function(ntrials = 5000,
       input.info$model.inf$tlr.inf$reg.inf
     )
   doParallel::stopImplicitCluster()
-  on.exit(options(old))
   return(list(
     result = result,
     OPC = OPC,
