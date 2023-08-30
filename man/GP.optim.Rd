@@ -6,34 +6,44 @@
 \usage{
 GP.optim(
   x,
-  y,
+  y.t1E,
+  y.pow = NA,
+  ESS = NA,
   errorrate = 0.05,
   confidence.level = 0.95,
   grid.length = 5000,
   change.scale = FALSE,
   noise = T,
   grid.min,
-  grid.max
+  grid.max,
+  Boundary.type = "Symmetric"
 )
 }
 \arguments{
 \item{x}{A numeric vector of cutoff data}
 
-\item{y}{A numeric vector of error rate data}
+\item{y.t1E}{A numeric vector of type I error rate data}
 
-\item{errorrate}{A numeric value. The error rate we want to achieve. Error rate here means type I error rate or family-wise error rate. Default is 0.05.}
+\item{y.pow}{A numeric vector of power data. Default is NA. Only used when Boundary.type == "Asymmetric"}
+
+\item{ESS}{A matrix of effective sample size. This is only called for asymmetric boundary cutoff screening. Default is NA for symmetric boundary.
+The first column is the ESS for different cutoff pair under the null scenario, the second column is the ESS for different cutoff pair under the alternative scenario.}
+
+\item{errorrate}{'errorrate' refers to the target of type I error rate or family-wise error rate. Default is 0.05. User can change it to 0.1 for FWER if they think 0.05 is too conservative. The per-hypothesis type I error equals errorrate / (K-1) where (K-1) is the number of treatment arms.}
 
 \item{confidence.level}{A numeric value indicating the confidence level of estimate. Default is 0.95}
 
-\item{grid.length}{A numeric value indicating the grid resolution. Default is 5000.}
+\item{grid.length}{A numeric value indicating the grid resolution. Default is 5000 for symmetric boundary. For asymmetric boundary, the length of grid is 101 for both efficacy grid and futility grid.}
 
 \item{change.scale}{A logic value indicating whether we want to change scale when doing Gaussian process. Default is FALSE.}
 
 \item{noise}{A logic value indicating whether the input x is noisy. Default is TRUE.}
 
-\item{grid.min}{A numeric value indicating the lower bound of the grid for screening.}
+\item{grid.min}{A numeric value or vector (for asymmetric boundary) indicating the lower bound of the grid for screening. For asymmetric boundary, the first value is efficacy minimum value and the second value is futility minimum value.}
 
-\item{grid.max}{A numeric value indicating the upper bound of the grid for screening.}
+\item{grid.max}{A numeric value or vector (for asymmetric boundary) indicating the upper bound of the grid for screening. For asymmetric boundary, the first value is efficacy maximum value and the second value is futility maximum value.}
+
+\item{Boundary.type}{A text indicating what type of boundary used. Default is "Symmetric"}
 }
 \value{
 A list including the next cutoff value for evaluation \code{next.cutoff} and a list of predictions for screening grid.
@@ -46,14 +56,14 @@ x = c(7.123968, 6.449631, 1.984406,
 3.507463, 4.972510, 2.925768,
 5.816682, 4.367796,
 7.349160, 1.113648)
-y = c(0.0396, 0.0450,
+y.t1E = c(0.0396, 0.0450,
 0.5116, 0.2172,
 0.1040, 0.3058,
 0.0592, 0.1384,
 0.0296, 0.7936)
 grid.min=1
 grid.max=8
-GP.res=GP.optim(x=x, y=y, errorrate = 0.1, grid.min = grid.min, grid.max = grid.max)
+GP.res=GP.optim(x=x, y.t1E=y.t1E, errorrate = 0.1, grid.min = grid.min, grid.max = grid.max)
 GP.res$next.cutoff
 }
 \references{
