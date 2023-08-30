@@ -11,16 +11,14 @@ OPC_null = OPC
 load("data-raw/TABLEEARLYcstagealtARTHALL.RData")
 OPC_alt = OPC
 
-load("data-raw/DATAEARLYcstagenullARTHALL.RData")
-DATA_null = result
-load("data-raw/DATAEARLYcstagealtARTHALL.RData")
-DATA_alt = result
-
 load("data-raw/TABLEOPC_Trial.simulationforreadme.RData")
 OPC_Trial.simulation=OPC_Trial.simulation
 
 load("data-raw/GPdata.RData")
-optimdata=optimdata
+optimdata_sym=optimdata
+
+load("data-raw/GPdatafourarmEarlyPocock_asy.RData")
+optimdata_asy=c(GP.res,ESS=list(ESS),testeddata=list(dnew))
 
 usethis::use_data(dataloginformd, recommandloginformd, predictedtpIEinformd,
-                  OPC_null, OPC_alt,OPC_Trial.simulation, optimdata, overwrite = TRUE)
+                  OPC_null, OPC_alt,OPC_Trial.simulation, optimdata_sym,optimdata_asy, overwrite = TRUE)
