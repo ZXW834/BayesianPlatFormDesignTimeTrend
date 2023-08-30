@@ -16,6 +16,11 @@ knitr::opts_chunk$set(
 # BayesianPlatformDesignTimeTrend
 
 <!-- badges: start -->
+[![](https://cranlogs.r-pkg.org/badges/grand-total/BayesianPlatformDesignTimeTrend)](https://cran.rstudio.com/web/packages/BayesianPlatformDesignTimeTrend/index.html)
+[![](https://cranlogs.r-pkg.org/badges/BayesianPlatformDesignTimeTrend)](https://cran.rstudio.com/web/packages/BayesianPlatformDesignTimeTrend/index.html)
+[![](https://img.shields.io/cran/v/BayesianPlatformDesignTimeTrend)](https://cran.rstudio.com/web/packages/BayesianPlatformDesignTimeTrend/index.html)
+[![](https://badges.cranchecks.info/flavor/windows/BayesianPlatformDesignTimeTrend.svg)](https://cran.rstudio.com/web/checks/check_results_BayesianPlatformDesignTimeTrend.html)
+[![](https://img.shields.io/cran/l/BayesianPlatformDesignTimeTrend)](https://opensource.org/license/mit/)
 <!-- badges: end -->
 
 The goal of BayesianPlatformDesignTimeTrend is to simulates the multi-arm multi-stage or platform trial with Bayesian approach using the 'rstan' package, which provides the R interface for to the stan. The package uses Thall's and Trippa's randomisation approach for Bayesian adaptive randomisation. In addition, the time trend problem of platform trial can be studied in this package. There is a demo for multi-arm multi-stage trial for two different null scenario in this package.
