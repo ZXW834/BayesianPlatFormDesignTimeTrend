@@ -52,7 +52,7 @@ size, just use the same cutoff (and hyperparameter) and only change the
 sample size parameter to create a new design for evaluation.
 <img src="https://github.com/ZXW834/BayesianPlatFormDesignTimeTrend/blob/main/man/figures/Asymmetric.png" width="50%" style="display: block; margin: auto;" />
 <img src="https://github.com/ZXW834/BayesianPlatFormDesignTimeTrend/blob/main/man/figures/Trippa.png" width="50%" style="display: block; margin: auto;" />
-<img src="https://github.com/ZXW834/BayesianPlatFormDesignTimeTrend/blob/main/man/figures/Designevaluationwhiteback.png" width="70%" style="display: block; margin: auto;" />
+<img src="https://github.com/ZXW834/BayesianPlatFormDesignTimeTrend/blob/main/man/figures/Designevaluationwhiteback.png" width="50%" style="display: block; margin: auto;" />
 
 ## Demo
 
